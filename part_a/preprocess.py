@@ -4,7 +4,13 @@ from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def generate_batch_train_val(path, augmentation, batch_size, image_size):
     #Splits the dataset into train and validation.
-    #Keras' ImageDataGenerator is used to split data into train and test. 
+    #Keras' ImageDataGenerator is used to split data into train and test.
+    """
+    path : String - Path to the train data.
+    augmentation : Boolean - Indicates whether Data Augmentation is to be performed or not.
+    batch_size : Integer - Specifies the batch size for train and val data.
+    image_size : Tuple of Integers - Specifies the shape to which the images need to be resized.
+    """ 
     if augmentation == True:
         #Applies data augmentation if specified
         train_data_gen = ImageDataGenerator(
@@ -25,6 +31,7 @@ def generate_batch_train_val(path, augmentation, batch_size, image_size):
     #Flow from directory expects that images belonging to each class is present in its own folder but inside the same parent folder : data directory.
     #It takes path to the data directory as input and generates batches of desired batch size.
     #Need to specify appropriate subset (training / validation) to generate batches for respective subset.
+    
     train_data = train_data_gen.flow_from_directory(
             path,
             target_size=image_size,
@@ -43,7 +50,7 @@ def generate_batch_train_val(path, augmentation, batch_size, image_size):
         batch_size=batch_size,
         class_mode="categorical",
         shuffle=True,
-        seed=0,
+        seed = 0,
         subset="validation"
     )
 
@@ -55,6 +62,11 @@ def generate_batch_train_val(path, augmentation, batch_size, image_size):
 
 def generate_batch_test(path, batch_size, image_size):
     #Generates batches of test data.
+    """
+    path : String - Path to the train data.
+    batch_size : Integer - Specifies the batch size for train and val data.
+    image_size : Tuple of Integers - Specifies the shape to which the images need to be resized.
+    """
     test_data_gen = ImageDataGenerator(
     featurewise_center = True,
     featurewise_std_normalization = True,
