@@ -48,9 +48,13 @@ sweep_config = {
       'name': 'val_accuracy',
       'goal': 'maximize'   
               },
+    'early_terminate' : {
+      'type': 'hyperband',
+      'min_iter': 10
+    },
     'parameters': {
         'num_epochs': {
-            'values': [10,15]
+            'values': [20,30]
         },
         'num_filters': {
             'values': [
@@ -72,7 +76,7 @@ sweep_config = {
             ]
         },
         'learning_rate': {
-            'values': [1e-5,1e-6]
+            'values': [1e-3,1e-4]
         },
         'batch_norm': {
             'values': [True, False]
